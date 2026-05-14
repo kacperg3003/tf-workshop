@@ -126,7 +126,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "lifecycle" {
 
 resource "aws_sns_topic" "s3_events" {
   name              = "s3-event-topic"
-  kms_master_key_id = aws_kms_key.s3_key.arn 
+  kms_master_key_id = aws_kms_key.s3_key.arn
 }
 
 resource "aws_s3_bucket_notification" "bucket_notification" {
@@ -146,8 +146,8 @@ resource "aws_iam_role" "ec2_role" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
+      Action    = "sts:AssumeRole"
+      Effect    = "Allow"
       Principal = { Service = "ec2.amazonaws.com" }
     }]
   })
@@ -159,12 +159,12 @@ resource "aws_iam_instance_profile" "profile" {
 }
 
 resource "aws_instance" "ec2_instance" {
-  ami                  = "ami-01e444924a2233b2d"
-  
+  ami = "ami-01e444924a2233b2d"
+
   # 🚩 WORKSHOP EXERCISE: Attendees update var.aws_ec2_type from "c5.18xlarge" 
   # to "t3.medium" in variables.tf to right-size the WordPress host.
-  instance_type        = var.aws_ec2_type
-  
+  instance_type = var.aws_ec2_type
+
   iam_instance_profile = aws_iam_instance_profile.profile.name
 
   vpc_security_group_ids = [
@@ -194,7 +194,7 @@ resource "aws_security_group" "ec2_instance_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    
+
     # 🚩 WORKSHOP EXERCISE: Change from ["0.0.0.0/0"] to a trusted CIDR like ["10.0.0.1/32"]
     cidr_blocks = [
       "0.0.0.0/0"

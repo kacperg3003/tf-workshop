@@ -1,0 +1,65 @@
+name: "Terraform Guardrails Pipeline"
+
+# Trigger on every push to every branch
+on: [push]
+
+jobs:
+  guardrails:
+    name: "Pre-flight Check"
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.7.0"
+
+      # 1. Syntax Check (The Plot Twist)
+      - name: Terraform Init & Validate
+        run: |
+          terraform init
+          terraform validate
+
+      # 2. Security Check (Checkov)
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: .
+          framework: terraform
+          soft_fail: false # Pipeline fails if security risks are found
+
+      # 3. Financial Check (Infracost)
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v3
+        with:
+          api_key: ${{ secrets.INFRACOST_API_KEY }}
+
+      - name: Generate Infracost JSON
+        run: infracost breakdown --path . --format json --out-file /tmp/infracost.json
+
+      - name: Enforce Budget Guardrail
+        run: |
+          # Install bc for decimal comparison
+          sudo apt-get install -y bc
+          
+          # Extract total monthly cost using jq
+          COST=$(jq -r '.totalMonthlyCost // 0' /tmp/infracost.json)
+          
+          echo "Current Monthly Estimate: \$$COST"
+          echo "Budget Limit: \$100.00"
+
+          # Comparison logic
+          if (( $(echo "$COST > 100" | bc -l) )); then
+            echo "-------------------------------------------------------"
+            echo "❌ ERROR: Infrastructure cost (\$$COST) exceeds budget!"
+            echo "Please downsize your instances to pass this check."
+            echo "-------------------------------------------------------"
+            exit 1
+          else
+            echo "-------------------------------------------------------"
+            echo "✅ Budget Approved! Cost is within the \$100 limit."
+            echo "-------------------------------------------------------"
+          fi
