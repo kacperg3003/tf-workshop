@@ -12,11 +12,11 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type = "GRS"
   min_tls_version          = "TLS1_2"
 
-  # 🚩 WORKSHOP EXERCISE: Change to false to disable anonymous public access
-  allow_nested_items_to_be_public = true
+  # 🚩 FIXED: WORKSHOP EXERCISE: Change to false to disable anonymous public access
+  allow_nested_items_to_be_public = false
 
-  # 🚩 WORKSHOP EXERCISE: Change to true to enforce HTTPS
-  https_traffic_only_enabled = false
+  # 🚩 FIXED: WORKSHOP EXERCISE: Change to true to enforce HTTPS
+  https_traffic_only_enabled = true
 
   public_network_access_enabled = false
 
@@ -52,7 +52,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
 
-  # 🚩 WORKSHOP EXERCISE: Attendees update var.azure_vm_size from "Standard_E32s_v3"
+  # 🚩 FIXED: WORKSHOP EXERCISE: Attendees update var.azure_vm_size from "Standard_E32s_v3"
   # to "Standard_B2s" in variables.tf to optimize costs for WordPress.
   size = var.azure_vm_size
 
@@ -102,7 +102,7 @@ resource "azurerm_network_security_rule" "sr" {
   source_port_range           = "*"
   destination_port_range      = "22"
 
-  # 🚩 WORKSHOP EXERCISE: Change from "*" to a trusted range like "10.0.0.0/8"
-  source_address_prefix      = "*"
+  # 🚩 FIXED: WORKSHOP EXERCISE: Change from "*" to a trusted range like "10.0.0.0/8"
+  source_address_prefix      = "10.0.0.0/8"
   destination_address_prefix = "*"
 }

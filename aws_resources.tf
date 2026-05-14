@@ -12,9 +12,9 @@ resource "aws_s3_bucket" "s3_bucket" {
 resource "aws_s3_bucket_public_access_block" "s3_bucket_public_access" {
   bucket = aws_s3_bucket.s3_bucket.id
 
-  # 🚩 WORKSHOP EXERCISE: Change both to true to prevent data leaks.
-  block_public_acls       = false
-  block_public_policy     = false
+  # 🚩 FIXED: WORKSHOP EXERCISE: Change both to true to prevent data leaks.
+  block_public_acls       = true
+  block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
@@ -161,7 +161,7 @@ resource "aws_iam_instance_profile" "profile" {
 resource "aws_instance" "ec2_instance" {
   ami = "ami-01e444924a2233b2d"
 
-  # 🚩 WORKSHOP EXERCISE: Attendees update var.aws_ec2_type from "c5.18xlarge" 
+  # 🚩 FIXED: WORKSHOP EXERCISE: Attendees update var.aws_ec2_type from "c5.18xlarge" 
   # to "t3.medium" in variables.tf to right-size the WordPress host.
   instance_type = var.aws_ec2_type
 
@@ -195,9 +195,9 @@ resource "aws_security_group" "ec2_instance_sg" {
     to_port     = 22
     protocol    = "tcp"
 
-    # 🚩 WORKSHOP EXERCISE: Change from ["0.0.0.0/0"] to a trusted CIDR like ["10.0.0.1/32"]
+    # 🚩 FIXED: WORKSHOP EXERCISE: Change from ["0.0.0.0/0"] to a trusted CIDR like ["10.0.0.1/32"]
     cidr_blocks = [
-      "0.0.0.0/0"
+      "10.0.0.1/32"
     ]
   }
 }
