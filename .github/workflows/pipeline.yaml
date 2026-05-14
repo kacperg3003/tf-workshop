@@ -1,7 +1,9 @@
 name: "Terraform Guardrails Pipeline"
 
-# Trigger on every push to every branch
 on: [push]
+
+permissions:
+  contents: read
 
 jobs:
   guardrails:
