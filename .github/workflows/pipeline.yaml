@@ -17,7 +17,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "1.14.8"
+          terraform_version: "1.7.0" 
 
       # 1. Syntax Check (The Plot Twist)
       - name: Terraform Init & Validate
@@ -31,7 +31,9 @@ jobs:
         with:
           directory: .
           framework: terraform
-          soft_fail: false # Pipeline fails if security risks are found
+          soft_fail: false 
+          output_format: cli
+          quiet: true # Reduces verbosity and prevents outputting logo/results to env variables
 
       # 3. Financial Check (Infracost)
       - name: Setup Infracost
@@ -46,12 +48,15 @@ jobs:
 
       - name: Enforce Budget Guardrail
         run: |
-          # Install bc for decimal comparison
+          # bc is usually pre-installed, but we ensure it's there
           sudo apt-get install -y bc
           
           # Extract total monthly cost using jq
           COST=$(jq -r '.totalMonthlyCost // 0' /tmp/infracost.json)
           
+          echo "======================================================="
+          echo "💰 FINANCIAL POLICY CHECK"
+          echo "======================================================="
           echo "Current Monthly Estimate: \$$COST"
           echo "Budget Limit: \$100.00"
 
