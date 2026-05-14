@@ -86,7 +86,7 @@ Once your local checks pass, push your code to a personal branch to trigger the 
     ```
 
 1. Verify on GitHub
-    1. Navigate to the Actions tab in this repository.
+    1. Navigate to the [Actions](https://github.com/bohdan-slota/tf-workshop/actions) tab in this repository.
     1. Ensure your workflow run turns Green.
 
 ## ✅ Success Criteria
