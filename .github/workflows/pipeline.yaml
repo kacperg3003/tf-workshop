@@ -40,6 +40,8 @@ jobs:
           api_key: ${{ secrets.INFRACOST_API_KEY }}
 
       - name: Generate Infracost JSON
+        env:
+          INFRACOST_API_KEY: ${{ secrets.INFRACOST_API_KEY }}
         run: infracost breakdown --path . --format json --out-file /tmp/infracost.json
 
       - name: Enforce Budget Guardrail
