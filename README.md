@@ -86,7 +86,7 @@ Once your local checks pass, push your code to a personal branch to trigger the 
     ```
 
 1. Verify on GitHub
-    1. Navigate to the Actions tab in this repository.
+    1. Navigate to the [Actions](https://github.com/bohdan-slota/tf-workshop/actions) tab in this repository.
     1. Ensure your workflow run turns Green.
 
 ## ✅ Success Criteria
@@ -103,3 +103,6 @@ The lab is successfully completed when:
 * Infracost Breakdown: Run `docker run --rm -v $(pwd):/code -e INFRACOST_API_KEY=${INFRACOST_API_KEY} infracost/infracost:latest breakdown --path /code` to see exactly which resource is eating your budget.
 
 * Manual Trigger: Use `pre-commit run --all-files` to test your fixes without having to attempt a git commit every time.
+
+## 💡 If you're stuck with the fixing terraform code...
+You can always find the correct path [here](https://github.com/bohdan-slota/tf-workshop/commit/83ffa7f7907d3609835e714ab9dd94eeb912ae99) :)
