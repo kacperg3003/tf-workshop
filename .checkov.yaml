@@ -1,0 +1,8 @@
+---
+# Exclude rules that don't make sense for a simple local lab environment
+skip-check:
+  - CKV_AWS_144    # S3 cross-region replication
+  - CKV2_AWS_62    # S3 event notifications on log bucket
+  - CKV_AZURE_50   # Azure VM Extensions
+  - CKV2_AZURE_33  # Azure Storage private endpoints
+  - CKV2_AZURE_1   # Azure Customer Managed Keys

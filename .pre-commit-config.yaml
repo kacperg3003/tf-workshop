@@ -1,0 +1,20 @@
+repos:
+  # ---------------------------------------------------------------------------
+  # 🛡️ HOOK 1: Checkov (Security Guardrails)
+  # ---------------------------------------------------------------------------
+  - repo: https://github.com/bridgecrewio/checkov
+    rev: '3.2.526'
+    hooks:
+      - id: checkov_container
+        args: ["--directory", ".", "--quiet"]
+
+  # ---------------------------------------------------------------------------
+  # 💰 HOOK 2: Infracost Budget Guardrail ($100 Limit)
+  # ---------------------------------------------------------------------------
+  - repo: local
+    hooks:
+      - id: infracost-budget-check
+        name: Infracost Budget Check ($100 Limit)
+        entry: ./helpers/budget.sh
+        language: script
+        pass_filenames: false
