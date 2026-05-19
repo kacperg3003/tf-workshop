@@ -28,6 +28,7 @@ This lab is designed to simulate a real-world scenario. You have inherited a mul
     ```bash
     pre-commit install
     ```
+
 1. Set your Infracost API Key
 
     1. Go to [Infracost](https://dashboard.infracost.io/).
@@ -38,6 +39,21 @@ This lab is designed to simulate a real-world scenario. You have inherited a mul
     ```bash
     export INFRACOST_API_KEY=<YOUR_KEY>
     ```
+
+1. Choose your difficulty level
+
+    Before running the audit, decide how to want to tackle this lab based on your current experience with cloud infrastructure.
+
+    * Option A: Standard guided flow
+        
+        **Stay on the `main` branch.** The Terraform configuration files contain inline code comments to guide you on exactly where and how to write the fixes.
+    * Option B: Chellenge Mode
+        
+        **Switch to the challenge branch right now:**
+
+        ```bash
+        git checkout challenge
+        ```
 
 1. Trigger the Reality Check
 
