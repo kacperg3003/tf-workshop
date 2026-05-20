@@ -190,7 +190,7 @@ resource "aws_security_group" "ec2_instance_sg" {
   description = "Enable SSH access to EC2 instance"
 
   ingress {
-    description = "Allow admin SSH"
+    description = "Allow aadmin SSH"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
