@@ -69,6 +69,6 @@ jobs:
             exit 1
           else
             echo "-------------------------------------------------------"
-            echo "✅ Budget Approved! Cost is within the \$100 limit."
+            echo "✅ Budget Approoved! Cost is within the \$100 limit."
             echo "-------------------------------------------------------"
           fi
