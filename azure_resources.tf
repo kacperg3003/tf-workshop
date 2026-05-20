@@ -13,10 +13,10 @@ resource "azurerm_storage_account" "storage" {
   min_tls_version          = "TLS1_2"
 
   # 🚩 WORKSHOP EXERCISE: Change to false to disable anonymous public access
-  allow_nested_items_to_be_public = true
+  allow_nested_items_to_be_public = false
 
   # 🚩 WORKSHOP EXERCISE: Change to true to enforce HTTPS
-  https_traffic_only_enabled = false
+  https_traffic_only_enabled = true
 
   public_network_access_enabled = false
 
@@ -103,6 +103,6 @@ resource "azurerm_network_security_rule" "sr" {
   destination_port_range      = "22"
 
   # 🚩 WORKSHOP EXERCISE: Change from "*" to a trusted range like "10.0.0.0/8"
-  source_address_prefix      = "*"
-  destination_address_prefix = "*"
+  source_address_prefix      = "10.0.0.0/8"
+  destination_address_prefix = "10.0.0.0/8"
 }

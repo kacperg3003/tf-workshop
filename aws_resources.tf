@@ -13,8 +13,8 @@ resource "aws_s3_bucket_public_access_block" "s3_bucket_public_access" {
   bucket = aws_s3_bucket.s3_bucket.id
 
   # 🚩 WORKSHOP EXERCISE: Change both to true to prevent data leaks.
-  block_public_acls       = false
-  block_public_policy     = false
+  block_public_acls       = true
+  block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
@@ -197,7 +197,7 @@ resource "aws_security_group" "ec2_instance_sg" {
 
     # 🚩 WORKSHOP EXERCISE: Change from ["0.0.0.0/0"] to a trusted CIDR like ["10.0.0.1/32"]
     cidr_blocks = [
-      "0.0.0.0/0"
+      "10.0.0.0/8"
     ]
   }
 }
